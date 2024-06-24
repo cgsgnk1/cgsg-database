@@ -130,8 +130,10 @@ io.on("connection", (socket: any) => {
   });
 });
 
-server.listen(process.env.PORT || 3000, () => {
+const port = 3000;
+
+server.listen(process.env.PORT || port, () => {
   let address = server.address();
   if (address)
-    console.log(`Server started on port ${address.toString()}.`);
+    console.log(`Server started on port ${port}.`);
 });

@@ -10,7 +10,11 @@
     "build:watch": "tsc -w",
     "build-server": "npx esbuild server/server.ts --outdir=./ --bundle --platform=node --packages=external --watch",
     "build-client": "npx esbuild client/client.tsx --bundle --sourcemap --outdir=output --watch",
-    "run-db": "C:/Users/cgsg167/Downloads/mongodb/mongodb/bin/mongod.exe --dbpath C:/Users/cgsg167/Downloads/cgsg-db"
+    "run-db": "C:/Users/cgsg167/Downloads/mongodb/mongodb/bin/mongod.exe --dbpath C:/Users/cgsg167/Downloads/cgsg-db",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "author": "",
   "license": "ISC",
