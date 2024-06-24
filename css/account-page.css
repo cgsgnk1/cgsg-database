@@ -1,0 +1,45 @@
+.accountImageDiv {
+  display: block;
+}
+
+.accountImage {
+  border-radius: 15px;
+}
+
+.signInput:hover {
+  background-color: rgb(170, 170, 170);
+}
+
+.signHref {
+  color: aqua;
+}
+
+.accountHeader {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: italic;
+  font-size: 45px;
+  font-weight: bolder;
+  color: rgba(255, 255, 255, 0.5)
+}
+
+.accessRightsDefault {
+  color: #666666;
+}
+
+.accessRightsAdmin {
+  font-weight: bold;
+  color: transparent;
+  background-clip: initial;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(45deg, rgb(0, 255, 255), rgb(0, 255, 191), #0184ff);
+}
+
+.accountTextarea {
+  font-family: CMU;
+  font-weight: bolder;
+  background-color: rgb(194, 194, 194);
+  border: solid 5px rgb(128, 128, 128);
+  border-radius: 6px;
+  padding: 6px;
+}

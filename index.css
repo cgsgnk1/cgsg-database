@@ -1,0 +1,72 @@
+@import "css/index-page.css";
+@import "css/sign-page.css";
+@import "css/default-page.css";
+@import "css/account-page.css";
+
+@font-face {
+  font-family: CMU;
+  src: url("./fonts/cmu-sans-serif-medium.ttf");
+}
+
+.CMUDiv {
+  position: absolute;
+  text-align: center;
+  font-family: CMU;
+  font-size: 26px;
+  color: white;
+}
+
+.caliberGameStyle {
+  display: inline-block;
+  border: 2px solid #FFC83C;
+  padding: 4px 4px;
+
+  &:hover {
+    border-color: #FFE68F;
+  }
+
+  a {
+    display: inline-block;
+    background-color: #f09000;
+    padding: 8px 40px;
+
+    font-style: normal;
+    font-family: "Consolas";
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 28px;
+
+    text-align: center;
+    /* text-transform: uppercase; */
+
+    color: #2C2002;
+
+    &:hover {
+      color: #d4c646;
+      background-color: #FFE68F;
+      text-decoration: none;
+    }
+  }
+}
+
+.flexDiv {
+  display: flex;
+  text-align: left;
+}
+
+.nonFlexDiv {
+  display: block;
+}
+
+.header {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: italic;
+  font-weight: bolder;
+  font-size: 44px;
+}
+
+.defaultText {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 23px;
+}

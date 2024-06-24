@@ -1,0 +1,47 @@
+.signTable {
+  position: absolute;
+  text-align: center;
+  width: 40%;
+  height: 40%;
+  top: 30%;
+  left: 30%;
+  z-index: 200;
+  font-family: CMU;
+  font-size: 26px;
+  color: white;
+  border: solid 10px white;
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.signMainDiv {
+  position: absolute;
+  text-align: center;
+  z-index: 200;
+  font-family: CMU;
+  font-size: 26px;
+  color: white;
+}
+
+.signInput {
+  font-family: CMU;
+  font-weight: bolder;
+  font-size: 26px;
+  color: rgb(0, 0, 0);
+  background-color: rgb(194, 194, 194);
+  border: solid 5px rgb(128, 128, 128);
+  border-radius: 37px;
+  padding-left: 17px;
+  padding-right: 17px;
+}
+
+.signInput:hover {
+  background-color: rgb(170, 170, 170);
+}
+
+.signHref {
+  color: aqua;
+}

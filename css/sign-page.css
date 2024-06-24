@@ -1,0 +1,33 @@
+.signInput {
+  font-family: CMU;
+  font-weight: bolder;
+  font-size: 26px;
+  height: 40px;
+  color: rgb(0, 0, 0);
+  background-color: rgb(194, 194, 194);
+  border: solid 5px rgb(128, 128, 128);
+  border-radius: 37px;
+  padding-left: 17px;
+  padding-right: 17px;
+}
+
+.signInput:hover {
+  background-color: rgb(170, 170, 170);
+}
+
+.signHref {
+  color: aqua;
+}
+
+.signSelect {
+  font-family: CMU;
+  font-weight: bolder;
+  font-size: 13px;
+
+  color: rgb(0, 0, 0);
+  background-color: rgb(194, 194, 194);
+  border: solid 5px rgb(128, 128, 128);
+  border-radius: 7px;
+  padding-left: 7px;
+  padding-right: 7px;
+}

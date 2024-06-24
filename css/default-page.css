@@ -1,0 +1,30 @@
+.defaultChecked {
+  background-color: rgba(96, 176, 252, 0.637);
+  color: white;
+  font-style: normal;
+  padding: 5px;
+  text-decoration: none;
+  z-index: 101;
+  position: relative;
+}
+
+.defaultChecked:hover {
+  background-color: rgba(133, 169, 236, 0.637);
+  color: rgb(40, 37, 214);
+}
+
+.defaultDefault {
+  background-color: rgba(175, 203, 255, 0.637);
+  color: rgb(27, 25, 145);
+  font-style: normal;
+  padding: 5px;
+  border-radius: 4px;
+  text-decoration: none;
+  z-index: 101;
+  position: relative;
+}
+
+.defaultDefault:hover {
+  background-color: rgba(133, 169, 236, 0.637);
+  color: rgb(40, 37, 214);
+}
