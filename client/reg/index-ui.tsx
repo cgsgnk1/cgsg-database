@@ -40,7 +40,7 @@ export function IndexPageDesign() {
   return (
     <div>
       <IndexPagePlain></IndexPagePlain>
-      <IndexPageImage src="./default/cgsg-logo.svg"></IndexPageImage>
+      <IndexPageImage src="./default/CGSG-Logo.svg"></IndexPageImage>
     </div>
   )
 }
