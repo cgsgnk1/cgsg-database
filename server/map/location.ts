@@ -1,5 +1,7 @@
 import { IDynamic } from "../server";
 
+import fetch from "node-fetch-commonjs";
+
 export async function getInfoAboutPos(lat: number, lon: number, object: IDynamic) {
   const request = {
     method: "GET",
@@ -58,7 +60,7 @@ export async function routerGetInfoAboutPos(req: any, res: any, next: any) {
   try {
     const received = await fetch(
       `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${apiKey}`);
-    const json = await received.json();
+    const json = await received.json() as IDynamic;
 
     let place: string = "";
     let fullPlace: string = "";
@@ -100,7 +102,7 @@ export async function routerGetLatLon(req: any, res: any, next: any) {
 
   try {
     const result = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${place}&apiKey=21706bc935764ebf8a26d3cbfaec82db`, {method: "GET"});
-    const data = await result.json();
+    const data = await result.json() as IDynamic;
   
     let array = [];
   

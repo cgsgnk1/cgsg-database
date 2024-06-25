@@ -554,6 +554,7 @@ async function routerGetMap(req, res, next) {
 }
 
 // server/map/location.ts
+var import_node_fetch_commonjs = __toESM(require("node-fetch-commonjs"));
 async function routerGetInfoAboutPos(req, res, next) {
   if (!req.body) {
     return res.status(400).json({ message: "No body" });
@@ -567,7 +568,7 @@ async function routerGetInfoAboutPos(req, res, next) {
   };
   const apiKey = "03234a843b7b4042bcce0453b6527c14";
   try {
-    const received = await fetch(
+    const received = await (0, import_node_fetch_commonjs.default)(
       `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${apiKey}`
     );
     const json = await received.json();
@@ -601,7 +602,7 @@ async function routerGetLatLon(req, res, next) {
     return res.status(400).json({ message: "Not enough data for res" });
   }
   try {
-    const result = await fetch(`https://api.geoapify.com/v1/geocode/search?text=${place}&apiKey=21706bc935764ebf8a26d3cbfaec82db`, { method: "GET" });
+    const result = await (0, import_node_fetch_commonjs.default)(`https://api.geoapify.com/v1/geocode/search?text=${place}&apiKey=21706bc935764ebf8a26d3cbfaec82db`, { method: "GET" });
     const data = await result.json();
     let array = [];
     if (data.features) {
@@ -732,10 +733,11 @@ io.on("connection", (socket) => {
     }
   });
 });
-server.listen(process.env.PORT || 3e3, () => {
+var port = 3e3;
+server.listen(process.env.PORT || port, () => {
   let address = server.address();
   if (address)
-    console.log(`Server started on port ${address.toString()}.`);
+    console.log(`Server started on port ${port}.`);
 });
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

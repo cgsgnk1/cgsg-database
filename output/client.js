@@ -46278,7 +46278,7 @@ uniform ${i4} ${a3} u_${s3};
     ));
   }
   function IndexPageDesign() {
-    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement(IndexPagePlain, null), /* @__PURE__ */ import_react2.default.createElement(IndexPageImage, { src: "./default/cgsg-logo.svg" }));
+    return /* @__PURE__ */ import_react2.default.createElement("div", null, /* @__PURE__ */ import_react2.default.createElement(IndexPagePlain, null), /* @__PURE__ */ import_react2.default.createElement(IndexPageImage, { src: "./default/CGSG-Logo.svg" }));
   }
   function IndexPageUI() {
     (0, import_react2.useEffect)(() => {

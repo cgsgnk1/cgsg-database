@@ -14,7 +14,7 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": "20.x"
+    "node": "16.x"
   },
   "author": "",
   "license": "ISC",
@@ -42,6 +42,7 @@
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
     "morgan": "^1.10.0",
+    "node-fetch-commonjs": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-map-gl": "^7.1.7",
