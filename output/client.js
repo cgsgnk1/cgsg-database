@@ -23047,7 +23047,7 @@
               unmarkContainerAsRoot(container);
             }
           };
-          function createRoot7(container, options2) {
+          function createRoot6(container, options2) {
             if (!isValidContainer(container)) {
               throw new Error("createRoot(...): Target container is not a DOM element.");
             }
@@ -23430,7 +23430,7 @@
                 error('You are importing createRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
               }
             }
-            return createRoot7(container, options2);
+            return createRoot6(container, options2);
           }
           function hydrateRoot$1(container, initialChildren, options2) {
             {
@@ -23525,1967 +23525,6 @@
         };
       }
       var i2;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/use-map.js
-  var require_use_map = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/use-map.js"(exports) {
-      "use strict";
-      var __assign = exports && exports.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-          }
-          return t;
-        };
-        return __assign.apply(this, arguments);
-      };
-      var __read = exports && exports.__read || function(o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
-        var i2 = m.call(o), r, ar = [], e;
-        try {
-          while ((n === void 0 || n-- > 0) && !(r = i2.next()).done) ar.push(r.value);
-        } catch (error) {
-          e = { error };
-        } finally {
-          try {
-            if (r && !r.done && (m = i2["return"])) m.call(i2);
-          } finally {
-            if (e) throw e.error;
-          }
-        }
-        return ar;
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      exports.useMap = exports.MapProvider = exports.MountedMapsContext = void 0;
-      var React13 = require_react();
-      var react_1 = require_react();
-      var map_1 = require_map();
-      exports.MountedMapsContext = React13.createContext(null);
-      var MapProvider = function(props) {
-        var _a = __read((0, react_1.useState)({}), 2), maps = _a[0], setMaps = _a[1];
-        var onMapMount = (0, react_1.useCallback)(function(map2, id) {
-          if (id === void 0) {
-            id = "default";
-          }
-          setMaps(function(currMaps) {
-            var _a2;
-            if (id === "current") {
-              throw new Error("'current' cannot be used as map id");
-            }
-            if (currMaps[id]) {
-              throw new Error("Multiple maps with the same id: ".concat(id));
-            }
-            return __assign(__assign({}, currMaps), (_a2 = {}, _a2[id] = map2, _a2));
-          });
-        }, []);
-        var onMapUnmount = (0, react_1.useCallback)(function(id) {
-          if (id === void 0) {
-            id = "default";
-          }
-          setMaps(function(currMaps) {
-            if (currMaps[id]) {
-              var nextMaps = __assign({}, currMaps);
-              delete nextMaps[id];
-              return nextMaps;
-            }
-            return currMaps;
-          });
-        }, []);
-        return React13.createElement(exports.MountedMapsContext.Provider, { value: {
-          maps,
-          onMapMount,
-          onMapUnmount
-        } }, props.children);
-      };
-      exports.MapProvider = MapProvider;
-      function useMap() {
-        var _a;
-        var maps = (_a = (0, react_1.useContext)(exports.MountedMapsContext)) === null || _a === void 0 ? void 0 : _a.maps;
-        var currentMap = (0, react_1.useContext)(map_1.MapContext);
-        var mapsWithCurrent = (0, react_1.useMemo)(function() {
-          return __assign(__assign({}, maps), { current: currentMap === null || currentMap === void 0 ? void 0 : currentMap.map });
-        }, [maps, currentMap]);
-        return mapsWithCurrent;
-      }
-      exports.useMap = useMap;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/utils/deep-equal.js
-  var require_deep_equal = __commonJS({
-    "node_modules/react-map-gl/dist/es5/utils/deep-equal.js"(exports) {
-      "use strict";
-      var __values = exports && exports.__values || function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i2 = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-          next: function() {
-            if (o && i2 >= o.length) o = void 0;
-            return { value: o && o[i2++], done: !o };
-          }
-        };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      exports.deepEqual = exports.arePointsEqual = void 0;
-      function arePointsEqual(a, b) {
-        var ax = Array.isArray(a) ? a[0] : a ? a.x : 0;
-        var ay = Array.isArray(a) ? a[1] : a ? a.y : 0;
-        var bx = Array.isArray(b) ? b[0] : b ? b.x : 0;
-        var by = Array.isArray(b) ? b[1] : b ? b.y : 0;
-        return ax === bx && ay === by;
-      }
-      exports.arePointsEqual = arePointsEqual;
-      function deepEqual(a, b) {
-        var e_1, _a;
-        if (a === b) {
-          return true;
-        }
-        if (!a || !b) {
-          return false;
-        }
-        if (Array.isArray(a)) {
-          if (!Array.isArray(b) || a.length !== b.length) {
-            return false;
-          }
-          for (var i2 = 0; i2 < a.length; i2++) {
-            if (!deepEqual(a[i2], b[i2])) {
-              return false;
-            }
-          }
-          return true;
-        } else if (Array.isArray(b)) {
-          return false;
-        }
-        if (typeof a === "object" && typeof b === "object") {
-          var aKeys = Object.keys(a);
-          var bKeys = Object.keys(b);
-          if (aKeys.length !== bKeys.length) {
-            return false;
-          }
-          try {
-            for (var aKeys_1 = __values(aKeys), aKeys_1_1 = aKeys_1.next(); !aKeys_1_1.done; aKeys_1_1 = aKeys_1.next()) {
-              var key = aKeys_1_1.value;
-              if (!b.hasOwnProperty(key)) {
-                return false;
-              }
-              if (!deepEqual(a[key], b[key])) {
-                return false;
-              }
-            }
-          } catch (e_1_1) {
-            e_1 = { error: e_1_1 };
-          } finally {
-            try {
-              if (aKeys_1_1 && !aKeys_1_1.done && (_a = aKeys_1.return)) _a.call(aKeys_1);
-            } finally {
-              if (e_1) throw e_1.error;
-            }
-          }
-          return true;
-        }
-        return false;
-      }
-      exports.deepEqual = deepEqual;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/utils/transform.js
-  var require_transform = __commonJS({
-    "node_modules/react-map-gl/dist/es5/utils/transform.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      exports.applyViewStateToTransform = exports.transformToViewState = exports.syncProjection = exports.cloneTransform = void 0;
-      var deep_equal_1 = require_deep_equal();
-      function cloneTransform(tr) {
-        var newTransform = tr.clone();
-        newTransform.pixelsToGLUnits = tr.pixelsToGLUnits;
-        return newTransform;
-      }
-      exports.cloneTransform = cloneTransform;
-      function syncProjection(src, dest) {
-        if (!src.getProjection) {
-          return;
-        }
-        var srcProjection = src.getProjection();
-        var destProjection = dest.getProjection();
-        if (!(0, deep_equal_1.deepEqual)(srcProjection, destProjection)) {
-          dest.setProjection(srcProjection);
-        }
-      }
-      exports.syncProjection = syncProjection;
-      function transformToViewState(tr) {
-        return {
-          longitude: tr.center.lng,
-          latitude: tr.center.lat,
-          zoom: tr.zoom,
-          pitch: tr.pitch,
-          bearing: tr.bearing,
-          padding: tr.padding
-        };
-      }
-      exports.transformToViewState = transformToViewState;
-      function applyViewStateToTransform(tr, props) {
-        var v = props.viewState || props;
-        var changed = false;
-        if ("longitude" in v && "latitude" in v) {
-          var center = tr.center;
-          tr.center = new center.constructor(v.longitude, v.latitude);
-          changed = changed || center !== tr.center;
-        }
-        if ("zoom" in v) {
-          var zoom = tr.zoom;
-          tr.zoom = v.zoom;
-          changed = changed || zoom !== tr.zoom;
-        }
-        if ("bearing" in v) {
-          var bearing = tr.bearing;
-          tr.bearing = v.bearing;
-          changed = changed || bearing !== tr.bearing;
-        }
-        if ("pitch" in v) {
-          var pitch = tr.pitch;
-          tr.pitch = v.pitch;
-          changed = changed || pitch !== tr.pitch;
-        }
-        if (v.padding && !tr.isPaddingEqual(v.padding)) {
-          changed = true;
-          tr.padding = v.padding;
-        }
-        return changed;
-      }
-      exports.applyViewStateToTransform = applyViewStateToTransform;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/utils/style-utils.js
-  var require_style_utils = __commonJS({
-    "node_modules/react-map-gl/dist/es5/utils/style-utils.js"(exports) {
-      "use strict";
-      var __assign = exports && exports.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-          }
-          return t;
-        };
-        return __assign.apply(this, arguments);
-      };
-      var __values = exports && exports.__values || function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i2 = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-          next: function() {
-            if (o && i2 >= o.length) o = void 0;
-            return { value: o && o[i2++], done: !o };
-          }
-        };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      exports.normalizeStyle = void 0;
-      var refProps = ["type", "source", "source-layer", "minzoom", "maxzoom", "filter", "layout"];
-      function normalizeStyle(style) {
-        var e_1, _a;
-        if (!style) {
-          return null;
-        }
-        if (typeof style === "string") {
-          return style;
-        }
-        if ("toJS" in style) {
-          style = style.toJS();
-        }
-        if (!style.layers) {
-          return style;
-        }
-        var layerIndex = {};
-        try {
-          for (var _b = __values(style.layers), _c = _b.next(); !_c.done; _c = _b.next()) {
-            var layer = _c.value;
-            layerIndex[layer.id] = layer;
-          }
-        } catch (e_1_1) {
-          e_1 = { error: e_1_1 };
-        } finally {
-          try {
-            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-          } finally {
-            if (e_1) throw e_1.error;
-          }
-        }
-        var layers = style.layers.map(function(layer2) {
-          var e_2, _a2;
-          var normalizedLayer = null;
-          if ("interactive" in layer2) {
-            normalizedLayer = Object.assign({}, layer2);
-            delete normalizedLayer.interactive;
-          }
-          var layerRef = layerIndex[layer2.ref];
-          if (layerRef) {
-            normalizedLayer = normalizedLayer || Object.assign({}, layer2);
-            delete normalizedLayer.ref;
-            try {
-              for (var refProps_1 = __values(refProps), refProps_1_1 = refProps_1.next(); !refProps_1_1.done; refProps_1_1 = refProps_1.next()) {
-                var propName = refProps_1_1.value;
-                if (propName in layerRef) {
-                  normalizedLayer[propName] = layerRef[propName];
-                }
-              }
-            } catch (e_2_1) {
-              e_2 = { error: e_2_1 };
-            } finally {
-              try {
-                if (refProps_1_1 && !refProps_1_1.done && (_a2 = refProps_1.return)) _a2.call(refProps_1);
-              } finally {
-                if (e_2) throw e_2.error;
-              }
-            }
-          }
-          return normalizedLayer || layer2;
-        });
-        return __assign(__assign({}, style), { layers });
-      }
-      exports.normalizeStyle = normalizeStyle;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/mapbox/mapbox.js
-  var require_mapbox = __commonJS({
-    "node_modules/react-map-gl/dist/es5/mapbox/mapbox.js"(exports) {
-      "use strict";
-      var __assign = exports && exports.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-          }
-          return t;
-        };
-        return __assign.apply(this, arguments);
-      };
-      var __values = exports && exports.__values || function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i2 = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-          next: function() {
-            if (o && i2 >= o.length) o = void 0;
-            return { value: o && o[i2++], done: !o };
-          }
-        };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var transform_1 = require_transform();
-      var style_utils_1 = require_style_utils();
-      var deep_equal_1 = require_deep_equal();
-      var DEFAULT_STYLE = { version: 8, sources: {}, layers: [] };
-      var pointerEvents = {
-        mousedown: "onMouseDown",
-        mouseup: "onMouseUp",
-        mouseover: "onMouseOver",
-        mousemove: "onMouseMove",
-        click: "onClick",
-        dblclick: "onDblClick",
-        mouseenter: "onMouseEnter",
-        mouseleave: "onMouseLeave",
-        mouseout: "onMouseOut",
-        contextmenu: "onContextMenu",
-        touchstart: "onTouchStart",
-        touchend: "onTouchEnd",
-        touchmove: "onTouchMove",
-        touchcancel: "onTouchCancel"
-      };
-      var cameraEvents = {
-        movestart: "onMoveStart",
-        move: "onMove",
-        moveend: "onMoveEnd",
-        dragstart: "onDragStart",
-        drag: "onDrag",
-        dragend: "onDragEnd",
-        zoomstart: "onZoomStart",
-        zoom: "onZoom",
-        zoomend: "onZoomEnd",
-        rotatestart: "onRotateStart",
-        rotate: "onRotate",
-        rotateend: "onRotateEnd",
-        pitchstart: "onPitchStart",
-        pitch: "onPitch",
-        pitchend: "onPitchEnd"
-      };
-      var otherEvents = {
-        wheel: "onWheel",
-        boxzoomstart: "onBoxZoomStart",
-        boxzoomend: "onBoxZoomEnd",
-        boxzoomcancel: "onBoxZoomCancel",
-        resize: "onResize",
-        load: "onLoad",
-        render: "onRender",
-        idle: "onIdle",
-        remove: "onRemove",
-        data: "onData",
-        styledata: "onStyleData",
-        sourcedata: "onSourceData",
-        error: "onError"
-      };
-      var settingNames = [
-        "minZoom",
-        "maxZoom",
-        "minPitch",
-        "maxPitch",
-        "maxBounds",
-        "projection",
-        "renderWorldCopies"
-      ];
-      var handlerNames = [
-        "scrollZoom",
-        "boxZoom",
-        "dragRotate",
-        "dragPan",
-        "keyboard",
-        "doubleClickZoom",
-        "touchZoomRotate",
-        "touchPitch"
-      ];
-      var Mapbox = (
-        /** @class */
-        function() {
-          function Mapbox2(MapClass, props, container) {
-            var _this = this;
-            this._map = null;
-            this._internalUpdate = false;
-            this._inRender = false;
-            this._hoveredFeatures = null;
-            this._deferredEvents = {
-              move: false,
-              zoom: false,
-              pitch: false,
-              rotate: false
-            };
-            this._onEvent = function(e) {
-              var cb = _this.props[otherEvents[e.type]];
-              if (cb) {
-                cb(e);
-              } else if (e.type === "error") {
-                console.error(e.error);
-              }
-            };
-            this._onPointerEvent = function(e) {
-              if (e.type === "mousemove" || e.type === "mouseout") {
-                _this._updateHover(e);
-              }
-              var cb = _this.props[pointerEvents[e.type]];
-              if (cb) {
-                if (_this.props.interactiveLayerIds && e.type !== "mouseover" && e.type !== "mouseout") {
-                  e.features = _this._hoveredFeatures || _this._queryRenderedFeatures(e.point);
-                }
-                cb(e);
-                delete e.features;
-              }
-            };
-            this._onCameraEvent = function(e) {
-              if (!_this._internalUpdate) {
-                var cb = _this.props[cameraEvents[e.type]];
-                if (cb) {
-                  cb(e);
-                }
-              }
-              if (e.type in _this._deferredEvents) {
-                _this._deferredEvents[e.type] = false;
-              }
-            };
-            this._MapClass = MapClass;
-            this.props = props;
-            this._initialize(container);
-          }
-          Object.defineProperty(Mapbox2.prototype, "map", {
-            get: function() {
-              return this._map;
-            },
-            enumerable: false,
-            configurable: true
-          });
-          Object.defineProperty(Mapbox2.prototype, "transform", {
-            get: function() {
-              return this._renderTransform;
-            },
-            enumerable: false,
-            configurable: true
-          });
-          Mapbox2.prototype.setProps = function(props) {
-            var oldProps = this.props;
-            this.props = props;
-            var settingsChanged = this._updateSettings(props, oldProps);
-            if (settingsChanged) {
-              this._createShadowTransform(this._map);
-            }
-            var sizeChanged = this._updateSize(props);
-            var viewStateChanged = this._updateViewState(props, true);
-            this._updateStyle(props, oldProps);
-            this._updateStyleComponents(props, oldProps);
-            this._updateHandlers(props, oldProps);
-            if (settingsChanged || sizeChanged || viewStateChanged && !this._map.isMoving()) {
-              this.redraw();
-            }
-          };
-          Mapbox2.reuse = function(props, container) {
-            var that = Mapbox2.savedMaps.pop();
-            if (!that) {
-              return null;
-            }
-            var map2 = that.map;
-            var oldContainer = map2.getContainer();
-            container.className = oldContainer.className;
-            while (oldContainer.childNodes.length > 0) {
-              container.appendChild(oldContainer.childNodes[0]);
-            }
-            map2._container = container;
-            var resizeObserver = map2._resizeObserver;
-            if (resizeObserver) {
-              resizeObserver.disconnect();
-              resizeObserver.observe(container);
-            }
-            that.setProps(__assign(__assign({}, props), { styleDiffing: false }));
-            map2.resize();
-            var initialViewState = props.initialViewState;
-            if (initialViewState) {
-              if (initialViewState.bounds) {
-                map2.fitBounds(initialViewState.bounds, __assign(__assign({}, initialViewState.fitBoundsOptions), { duration: 0 }));
-              } else {
-                that._updateViewState(initialViewState, false);
-              }
-            }
-            if (map2.isStyleLoaded()) {
-              map2.fire("load");
-            } else {
-              map2.once("styledata", function() {
-                return map2.fire("load");
-              });
-            }
-            map2._update();
-            return that;
-          };
-          Mapbox2.prototype._initialize = function(container) {
-            var _this = this;
-            var props = this.props;
-            var _a = props.mapStyle, mapStyle = _a === void 0 ? DEFAULT_STYLE : _a;
-            var mapOptions = __assign(__assign(__assign({}, props), props.initialViewState), { accessToken: props.mapboxAccessToken || getAccessTokenFromEnv() || null, container, style: (0, style_utils_1.normalizeStyle)(mapStyle) });
-            var viewState = mapOptions.initialViewState || mapOptions.viewState || mapOptions;
-            Object.assign(mapOptions, {
-              center: [viewState.longitude || 0, viewState.latitude || 0],
-              zoom: viewState.zoom || 0,
-              pitch: viewState.pitch || 0,
-              bearing: viewState.bearing || 0
-            });
-            if (props.gl) {
-              var getContext_1 = HTMLCanvasElement.prototype.getContext;
-              HTMLCanvasElement.prototype.getContext = function() {
-                HTMLCanvasElement.prototype.getContext = getContext_1;
-                return props.gl;
-              };
-            }
-            var map2 = new this._MapClass(mapOptions);
-            if (viewState.padding) {
-              map2.setPadding(viewState.padding);
-            }
-            if (props.cursor) {
-              map2.getCanvas().style.cursor = props.cursor;
-            }
-            this._createShadowTransform(map2);
-            var renderMap = map2._render;
-            map2._render = function(arg) {
-              _this._inRender = true;
-              renderMap.call(map2, arg);
-              _this._inRender = false;
-            };
-            var runRenderTaskQueue = map2._renderTaskQueue.run;
-            map2._renderTaskQueue.run = function(arg) {
-              runRenderTaskQueue.call(map2._renderTaskQueue, arg);
-              _this._onBeforeRepaint();
-            };
-            map2.on("render", function() {
-              return _this._onAfterRepaint();
-            });
-            var fireEvent = map2.fire;
-            map2.fire = this._fireEvent.bind(this, fireEvent);
-            map2.on("resize", function() {
-              _this._renderTransform.resize(map2.transform.width, map2.transform.height);
-            });
-            map2.on("styledata", function() {
-              _this._updateStyleComponents(_this.props, {});
-              (0, transform_1.syncProjection)(map2.transform, _this._renderTransform);
-            });
-            map2.on("sourcedata", function() {
-              return _this._updateStyleComponents(_this.props, {});
-            });
-            for (var eventName in pointerEvents) {
-              map2.on(eventName, this._onPointerEvent);
-            }
-            for (var eventName in cameraEvents) {
-              map2.on(eventName, this._onCameraEvent);
-            }
-            for (var eventName in otherEvents) {
-              map2.on(eventName, this._onEvent);
-            }
-            this._map = map2;
-          };
-          Mapbox2.prototype.recycle = function() {
-            var container = this.map.getContainer();
-            var children = container.querySelector("[mapboxgl-children]");
-            children === null || children === void 0 ? void 0 : children.remove();
-            Mapbox2.savedMaps.push(this);
-          };
-          Mapbox2.prototype.destroy = function() {
-            this._map.remove();
-          };
-          Mapbox2.prototype.redraw = function() {
-            var map2 = this._map;
-            if (!this._inRender && map2.style) {
-              if (map2._frame) {
-                map2._frame.cancel();
-                map2._frame = null;
-              }
-              map2._render();
-            }
-          };
-          Mapbox2.prototype._createShadowTransform = function(map2) {
-            var renderTransform = (0, transform_1.cloneTransform)(map2.transform);
-            map2.painter.transform = renderTransform;
-            this._renderTransform = renderTransform;
-          };
-          Mapbox2.prototype._updateSize = function(nextProps) {
-            var viewState = nextProps.viewState;
-            if (viewState) {
-              var map2 = this._map;
-              if (viewState.width !== map2.transform.width || viewState.height !== map2.transform.height) {
-                map2.resize();
-                return true;
-              }
-            }
-            return false;
-          };
-          Mapbox2.prototype._updateViewState = function(nextProps, triggerEvents) {
-            if (this._internalUpdate) {
-              return false;
-            }
-            var map2 = this._map;
-            var tr = this._renderTransform;
-            var zoom = tr.zoom, pitch = tr.pitch, bearing = tr.bearing;
-            var isMoving = map2.isMoving();
-            if (isMoving) {
-              tr.cameraElevationReference = "sea";
-            }
-            var changed = (0, transform_1.applyViewStateToTransform)(tr, __assign(__assign({}, (0, transform_1.transformToViewState)(map2.transform)), nextProps));
-            if (isMoving) {
-              tr.cameraElevationReference = "ground";
-            }
-            if (changed && triggerEvents) {
-              var deferredEvents = this._deferredEvents;
-              deferredEvents.move = true;
-              deferredEvents.zoom || (deferredEvents.zoom = zoom !== tr.zoom);
-              deferredEvents.rotate || (deferredEvents.rotate = bearing !== tr.bearing);
-              deferredEvents.pitch || (deferredEvents.pitch = pitch !== tr.pitch);
-            }
-            if (!isMoving) {
-              (0, transform_1.applyViewStateToTransform)(map2.transform, nextProps);
-            }
-            return changed;
-          };
-          Mapbox2.prototype._updateSettings = function(nextProps, currProps) {
-            var e_1, _a;
-            var map2 = this._map;
-            var changed = false;
-            try {
-              for (var settingNames_1 = __values(settingNames), settingNames_1_1 = settingNames_1.next(); !settingNames_1_1.done; settingNames_1_1 = settingNames_1.next()) {
-                var propName = settingNames_1_1.value;
-                if (propName in nextProps && !(0, deep_equal_1.deepEqual)(nextProps[propName], currProps[propName])) {
-                  changed = true;
-                  var setter = map2["set".concat(propName[0].toUpperCase()).concat(propName.slice(1))];
-                  setter === null || setter === void 0 ? void 0 : setter.call(map2, nextProps[propName]);
-                }
-              }
-            } catch (e_1_1) {
-              e_1 = { error: e_1_1 };
-            } finally {
-              try {
-                if (settingNames_1_1 && !settingNames_1_1.done && (_a = settingNames_1.return)) _a.call(settingNames_1);
-              } finally {
-                if (e_1) throw e_1.error;
-              }
-            }
-            return changed;
-          };
-          Mapbox2.prototype._updateStyle = function(nextProps, currProps) {
-            if (nextProps.cursor !== currProps.cursor) {
-              this._map.getCanvas().style.cursor = nextProps.cursor || "";
-            }
-            if (nextProps.mapStyle !== currProps.mapStyle) {
-              var _a = nextProps.mapStyle, mapStyle = _a === void 0 ? DEFAULT_STYLE : _a, _b = nextProps.styleDiffing, styleDiffing = _b === void 0 ? true : _b;
-              var options = {
-                diff: styleDiffing
-              };
-              if ("localIdeographFontFamily" in nextProps) {
-                options.localIdeographFontFamily = nextProps.localIdeographFontFamily;
-              }
-              this._map.setStyle((0, style_utils_1.normalizeStyle)(mapStyle), options);
-              return true;
-            }
-            return false;
-          };
-          Mapbox2.prototype._updateStyleComponents = function(nextProps, currProps) {
-            var map2 = this._map;
-            var changed = false;
-            if (map2.isStyleLoaded()) {
-              if ("light" in nextProps && map2.setLight && !(0, deep_equal_1.deepEqual)(nextProps.light, currProps.light)) {
-                changed = true;
-                map2.setLight(nextProps.light);
-              }
-              if ("fog" in nextProps && map2.setFog && !(0, deep_equal_1.deepEqual)(nextProps.fog, currProps.fog)) {
-                changed = true;
-                map2.setFog(nextProps.fog);
-              }
-              if ("terrain" in nextProps && map2.setTerrain && !(0, deep_equal_1.deepEqual)(nextProps.terrain, currProps.terrain)) {
-                if (!nextProps.terrain || map2.getSource(nextProps.terrain.source)) {
-                  changed = true;
-                  map2.setTerrain(nextProps.terrain);
-                }
-              }
-            }
-            return changed;
-          };
-          Mapbox2.prototype._updateHandlers = function(nextProps, currProps) {
-            var e_2, _a;
-            var _b, _c;
-            var map2 = this._map;
-            var changed = false;
-            try {
-              for (var handlerNames_1 = __values(handlerNames), handlerNames_1_1 = handlerNames_1.next(); !handlerNames_1_1.done; handlerNames_1_1 = handlerNames_1.next()) {
-                var propName = handlerNames_1_1.value;
-                var newValue = (_b = nextProps[propName]) !== null && _b !== void 0 ? _b : true;
-                var oldValue = (_c = currProps[propName]) !== null && _c !== void 0 ? _c : true;
-                if (!(0, deep_equal_1.deepEqual)(newValue, oldValue)) {
-                  changed = true;
-                  if (newValue) {
-                    map2[propName].enable(newValue);
-                  } else {
-                    map2[propName].disable();
-                  }
-                }
-              }
-            } catch (e_2_1) {
-              e_2 = { error: e_2_1 };
-            } finally {
-              try {
-                if (handlerNames_1_1 && !handlerNames_1_1.done && (_a = handlerNames_1.return)) _a.call(handlerNames_1);
-              } finally {
-                if (e_2) throw e_2.error;
-              }
-            }
-            return changed;
-          };
-          Mapbox2.prototype._queryRenderedFeatures = function(point) {
-            var map2 = this._map;
-            var tr = map2.transform;
-            var _a = this.props.interactiveLayerIds, interactiveLayerIds = _a === void 0 ? [] : _a;
-            try {
-              map2.transform = this._renderTransform;
-              return map2.queryRenderedFeatures(point, {
-                layers: interactiveLayerIds.filter(map2.getLayer.bind(map2))
-              });
-            } catch (_b) {
-              return [];
-            } finally {
-              map2.transform = tr;
-            }
-          };
-          Mapbox2.prototype._updateHover = function(e) {
-            var _a;
-            var props = this.props;
-            var shouldTrackHoveredFeatures = props.interactiveLayerIds && (props.onMouseMove || props.onMouseEnter || props.onMouseLeave);
-            if (shouldTrackHoveredFeatures) {
-              var eventType = e.type;
-              var wasHovering = ((_a = this._hoveredFeatures) === null || _a === void 0 ? void 0 : _a.length) > 0;
-              var features = this._queryRenderedFeatures(e.point);
-              var isHovering = features.length > 0;
-              if (!isHovering && wasHovering) {
-                e.type = "mouseleave";
-                this._onPointerEvent(e);
-              }
-              this._hoveredFeatures = features;
-              if (isHovering && !wasHovering) {
-                e.type = "mouseenter";
-                this._onPointerEvent(e);
-              }
-              e.type = eventType;
-            } else {
-              this._hoveredFeatures = null;
-            }
-          };
-          Mapbox2.prototype._fireEvent = function(baseFire, event, properties) {
-            var map2 = this._map;
-            var tr = map2.transform;
-            var eventType = typeof event === "string" ? event : event.type;
-            if (eventType === "move") {
-              this._updateViewState(this.props, false);
-            }
-            if (eventType in cameraEvents) {
-              if (typeof event === "object") {
-                event.viewState = (0, transform_1.transformToViewState)(tr);
-              }
-              if (this._map.isMoving()) {
-                map2.transform = this._renderTransform;
-                baseFire.call(map2, event, properties);
-                map2.transform = tr;
-                return map2;
-              }
-            }
-            baseFire.call(map2, event, properties);
-            return map2;
-          };
-          Mapbox2.prototype._onBeforeRepaint = function() {
-            var _this = this;
-            var map2 = this._map;
-            this._internalUpdate = true;
-            for (var eventType in this._deferredEvents) {
-              if (this._deferredEvents[eventType]) {
-                map2.fire(eventType);
-              }
-            }
-            this._internalUpdate = false;
-            var tr = this._map.transform;
-            map2.transform = this._renderTransform;
-            this._onAfterRepaint = function() {
-              (0, transform_1.syncProjection)(_this._renderTransform, tr);
-              map2.transform = tr;
-            };
-          };
-          Mapbox2.savedMaps = [];
-          return Mapbox2;
-        }()
-      );
-      exports.default = Mapbox;
-      function getAccessTokenFromEnv() {
-        var accessToken = null;
-        if (typeof location !== "undefined") {
-          var match = /access_token=([^&\/]*)/.exec(location.search);
-          accessToken = match && match[1];
-        }
-        try {
-          accessToken = accessToken || process.env.MapboxAccessToken;
-        } catch (_a) {
-        }
-        try {
-          accessToken = accessToken || process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-        } catch (_b) {
-        }
-        return accessToken;
-      }
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/mapbox/create-ref.js
-  var require_create_ref = __commonJS({
-    "node_modules/react-map-gl/dist/es5/mapbox/create-ref.js"(exports) {
-      "use strict";
-      var __values = exports && exports.__values || function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i2 = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-          next: function() {
-            if (o && i2 >= o.length) o = void 0;
-            return { value: o && o[i2++], done: !o };
-          }
-        };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var skipMethods = [
-        "setMaxBounds",
-        "setMinZoom",
-        "setMaxZoom",
-        "setMinPitch",
-        "setMaxPitch",
-        "setRenderWorldCopies",
-        "setProjection",
-        "setStyle",
-        "addSource",
-        "removeSource",
-        "addLayer",
-        "removeLayer",
-        "setLayerZoomRange",
-        "setFilter",
-        "setPaintProperty",
-        "setLayoutProperty",
-        "setLight",
-        "setTerrain",
-        "setFog",
-        "remove"
-      ];
-      function createRef(mapInstance) {
-        var e_1, _a;
-        if (!mapInstance) {
-          return null;
-        }
-        var map2 = mapInstance.map;
-        var result = {
-          getMap: function() {
-            return map2;
-          },
-          // Overwrite getters to use our shadow transform
-          getCenter: function() {
-            return mapInstance.transform.center;
-          },
-          getZoom: function() {
-            return mapInstance.transform.zoom;
-          },
-          getBearing: function() {
-            return mapInstance.transform.bearing;
-          },
-          getPitch: function() {
-            return mapInstance.transform.pitch;
-          },
-          getPadding: function() {
-            return mapInstance.transform.padding;
-          },
-          getBounds: function() {
-            return mapInstance.transform.getBounds();
-          },
-          project: function(lnglat) {
-            var tr = map2.transform;
-            map2.transform = mapInstance.transform;
-            var result2 = map2.project(lnglat);
-            map2.transform = tr;
-            return result2;
-          },
-          unproject: function(point) {
-            var tr = map2.transform;
-            map2.transform = mapInstance.transform;
-            var result2 = map2.unproject(point);
-            map2.transform = tr;
-            return result2;
-          },
-          // options diverge between mapbox and maplibre
-          queryTerrainElevation: function(lnglat, options) {
-            var tr = map2.transform;
-            map2.transform = mapInstance.transform;
-            var result2 = map2.queryTerrainElevation(lnglat, options);
-            map2.transform = tr;
-            return result2;
-          },
-          queryRenderedFeatures: function(geometry, options) {
-            var tr = map2.transform;
-            map2.transform = mapInstance.transform;
-            var result2 = map2.queryRenderedFeatures(geometry, options);
-            map2.transform = tr;
-            return result2;
-          }
-        };
-        try {
-          for (var _b = __values(getMethodNames(map2)), _c = _b.next(); !_c.done; _c = _b.next()) {
-            var key = _c.value;
-            if (!(key in result) && !skipMethods.includes(key)) {
-              result[key] = map2[key].bind(map2);
-            }
-          }
-        } catch (e_1_1) {
-          e_1 = { error: e_1_1 };
-        } finally {
-          try {
-            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-          } finally {
-            if (e_1) throw e_1.error;
-          }
-        }
-        return result;
-      }
-      exports.default = createRef;
-      function getMethodNames(obj) {
-        var e_2, _a;
-        var result = /* @__PURE__ */ new Set();
-        var proto = obj;
-        while (proto) {
-          try {
-            for (var _b = (e_2 = void 0, __values(Object.getOwnPropertyNames(proto))), _c = _b.next(); !_c.done; _c = _b.next()) {
-              var key = _c.value;
-              if (key[0] !== "_" && typeof obj[key] === "function" && key !== "fire" && key !== "setEventedParent") {
-                result.add(key);
-              }
-            }
-          } catch (e_2_1) {
-            e_2 = { error: e_2_1 };
-          } finally {
-            try {
-              if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            } finally {
-              if (e_2) throw e_2.error;
-            }
-          }
-          proto = Object.getPrototypeOf(proto);
-        }
-        return Array.from(result);
-      }
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/utils/use-isomorphic-layout-effect.js
-  var require_use_isomorphic_layout_effect = __commonJS({
-    "node_modules/react-map-gl/dist/es5/utils/use-isomorphic-layout-effect.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var react_1 = require_react();
-      var useIsomorphicLayoutEffect = typeof document !== "undefined" ? react_1.useLayoutEffect : react_1.useEffect;
-      exports.default = useIsomorphicLayoutEffect;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/utils/set-globals.js
-  var require_set_globals = __commonJS({
-    "node_modules/react-map-gl/dist/es5/utils/set-globals.js"(exports) {
-      "use strict";
-      var __values = exports && exports.__values || function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i2 = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-          next: function() {
-            if (o && i2 >= o.length) o = void 0;
-            return { value: o && o[i2++], done: !o };
-          }
-        };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var globalSettings = [
-        "baseApiUrl",
-        "maxParallelImageRequests",
-        "workerClass",
-        "workerCount",
-        "workerUrl"
-      ];
-      function setGlobals(mapLib, props) {
-        var e_1, _a;
-        try {
-          for (var globalSettings_1 = __values(globalSettings), globalSettings_1_1 = globalSettings_1.next(); !globalSettings_1_1.done; globalSettings_1_1 = globalSettings_1.next()) {
-            var key = globalSettings_1_1.value;
-            if (key in props) {
-              mapLib[key] = props[key];
-            }
-          }
-        } catch (e_1_1) {
-          e_1 = { error: e_1_1 };
-        } finally {
-          try {
-            if (globalSettings_1_1 && !globalSettings_1_1.done && (_a = globalSettings_1.return)) _a.call(globalSettings_1);
-          } finally {
-            if (e_1) throw e_1.error;
-          }
-        }
-        var _b = props.RTLTextPlugin, RTLTextPlugin = _b === void 0 ? "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js" : _b;
-        if (RTLTextPlugin && mapLib.getRTLTextPluginStatus && mapLib.getRTLTextPluginStatus() === "unavailable") {
-          mapLib.setRTLTextPlugin(RTLTextPlugin, function(error) {
-            if (error) {
-              console.error(error);
-            }
-          }, true);
-        }
-      }
-      exports.default = setGlobals;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/map.js
-  var require_map = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/map.js"(exports) {
-      "use strict";
-      var __assign = exports && exports.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-          }
-          return t;
-        };
-        return __assign.apply(this, arguments);
-      };
-      var __read = exports && exports.__read || function(o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
-        var i2 = m.call(o), r, ar = [], e;
-        try {
-          while ((n === void 0 || n-- > 0) && !(r = i2.next()).done) ar.push(r.value);
-        } catch (error) {
-          e = { error };
-        } finally {
-          try {
-            if (r && !r.done && (m = i2["return"])) m.call(i2);
-          } finally {
-            if (e) throw e.error;
-          }
-        }
-        return ar;
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      exports.MapContext = void 0;
-      var React13 = require_react();
-      var react_1 = require_react();
-      var use_map_1 = require_use_map();
-      var mapbox_1 = require_mapbox();
-      var create_ref_1 = require_create_ref();
-      var use_isomorphic_layout_effect_1 = require_use_isomorphic_layout_effect();
-      var set_globals_1 = require_set_globals();
-      exports.MapContext = React13.createContext(null);
-      function Map3(props, ref, defaultLib) {
-        var mountedMapsContext = (0, react_1.useContext)(use_map_1.MountedMapsContext);
-        var _a = __read((0, react_1.useState)(null), 2), mapInstance = _a[0], setMapInstance = _a[1];
-        var containerRef = (0, react_1.useRef)();
-        var contextValue = (0, react_1.useRef)({ mapLib: null, map: null }).current;
-        (0, react_1.useEffect)(function() {
-          var mapLib = props.mapLib;
-          var isMounted = true;
-          var mapbox;
-          Promise.resolve(mapLib || defaultLib).then(function(module2) {
-            if (!isMounted) {
-              return;
-            }
-            if (!module2) {
-              throw new Error("Invalid mapLib");
-            }
-            var mapboxgl = "Map" in module2 ? module2 : module2.default;
-            if (!mapboxgl.Map) {
-              throw new Error("Invalid mapLib");
-            }
-            (0, set_globals_1.default)(mapboxgl, props);
-            if (!mapboxgl.supported || mapboxgl.supported(props)) {
-              if (props.reuseMaps) {
-                mapbox = mapbox_1.default.reuse(props, containerRef.current);
-              }
-              if (!mapbox) {
-                mapbox = new mapbox_1.default(mapboxgl.Map, props, containerRef.current);
-              }
-              contextValue.map = (0, create_ref_1.default)(mapbox);
-              contextValue.mapLib = mapboxgl;
-              setMapInstance(mapbox);
-              mountedMapsContext === null || mountedMapsContext === void 0 ? void 0 : mountedMapsContext.onMapMount(contextValue.map, props.id);
-            } else {
-              throw new Error("Map is not supported by this browser");
-            }
-          }).catch(function(error) {
-            var onError = props.onError;
-            if (onError) {
-              onError({
-                type: "error",
-                target: null,
-                originalEvent: null,
-                error
-              });
-            } else {
-              console.error(error);
-            }
-          });
-          return function() {
-            isMounted = false;
-            if (mapbox) {
-              mountedMapsContext === null || mountedMapsContext === void 0 ? void 0 : mountedMapsContext.onMapUnmount(props.id);
-              if (props.reuseMaps) {
-                mapbox.recycle();
-              } else {
-                mapbox.destroy();
-              }
-            }
-          };
-        }, []);
-        (0, use_isomorphic_layout_effect_1.default)(function() {
-          if (mapInstance) {
-            mapInstance.setProps(props);
-          }
-        });
-        (0, react_1.useImperativeHandle)(ref, function() {
-          return contextValue.map;
-        }, [mapInstance]);
-        var style = (0, react_1.useMemo)(function() {
-          return __assign({ position: "relative", width: "100%", height: "100%" }, props.style);
-        }, [props.style]);
-        var CHILD_CONTAINER_STYLE = {
-          height: "100%"
-        };
-        return React13.createElement("div", { id: props.id, ref: containerRef, style }, mapInstance && React13.createElement(
-          exports.MapContext.Provider,
-          { value: contextValue },
-          React13.createElement("div", { "mapboxgl-children": "", style: CHILD_CONTAINER_STYLE }, props.children)
-        ));
-      }
-      exports.default = Map3;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/utils/apply-react-style.js
-  var require_apply_react_style = __commonJS({
-    "node_modules/react-map-gl/dist/es5/utils/apply-react-style.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      exports.applyReactStyle = void 0;
-      var unitlessNumber = /box|flex|grid|column|lineHeight|fontWeight|opacity|order|tabSize|zIndex/;
-      function applyReactStyle(element, styles) {
-        if (!element || !styles) {
-          return;
-        }
-        var style = element.style;
-        for (var key in styles) {
-          var value2 = styles[key];
-          if (Number.isFinite(value2) && !unitlessNumber.test(key)) {
-            style[key] = "".concat(value2, "px");
-          } else {
-            style[key] = value2;
-          }
-        }
-      }
-      exports.applyReactStyle = applyReactStyle;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/marker.js
-  var require_marker = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/marker.js"(exports) {
-      "use strict";
-      var __assign = exports && exports.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-          }
-          return t;
-        };
-        return __assign.apply(this, arguments);
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var React13 = require_react();
-      var react_dom_1 = require_react_dom();
-      var react_1 = require_react();
-      var apply_react_style_1 = require_apply_react_style();
-      var map_1 = require_map();
-      var deep_equal_1 = require_deep_equal();
-      function Marker2(props, ref) {
-        var _a = (0, react_1.useContext)(map_1.MapContext), map2 = _a.map, mapLib = _a.mapLib;
-        var thisRef = (0, react_1.useRef)({ props });
-        thisRef.current.props = props;
-        var marker = (0, react_1.useMemo)(function() {
-          var hasChildren = false;
-          React13.Children.forEach(props.children, function(el) {
-            if (el) {
-              hasChildren = true;
-            }
-          });
-          var options = __assign(__assign({}, props), { element: hasChildren ? document.createElement("div") : null });
-          var mk = new mapLib.Marker(options);
-          mk.setLngLat([props.longitude, props.latitude]);
-          mk.getElement().addEventListener("click", function(e) {
-            var _a2, _b2;
-            (_b2 = (_a2 = thisRef.current.props).onClick) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, {
-              type: "click",
-              target: mk,
-              originalEvent: e
-            });
-          });
-          mk.on("dragstart", function(e) {
-            var _a2, _b2;
-            var evt = e;
-            evt.lngLat = marker.getLngLat();
-            (_b2 = (_a2 = thisRef.current.props).onDragStart) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, evt);
-          });
-          mk.on("drag", function(e) {
-            var _a2, _b2;
-            var evt = e;
-            evt.lngLat = marker.getLngLat();
-            (_b2 = (_a2 = thisRef.current.props).onDrag) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, evt);
-          });
-          mk.on("dragend", function(e) {
-            var _a2, _b2;
-            var evt = e;
-            evt.lngLat = marker.getLngLat();
-            (_b2 = (_a2 = thisRef.current.props).onDragEnd) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, evt);
-          });
-          return mk;
-        }, []);
-        (0, react_1.useEffect)(function() {
-          marker.addTo(map2.getMap());
-          return function() {
-            marker.remove();
-          };
-        }, []);
-        var longitude = props.longitude, latitude = props.latitude, offset = props.offset, style = props.style, _b = props.draggable, draggable = _b === void 0 ? false : _b, _c = props.popup, popup = _c === void 0 ? null : _c, _d = props.rotation, rotation = _d === void 0 ? 0 : _d, _e = props.rotationAlignment, rotationAlignment = _e === void 0 ? "auto" : _e, _f = props.pitchAlignment, pitchAlignment = _f === void 0 ? "auto" : _f;
-        (0, react_1.useEffect)(function() {
-          (0, apply_react_style_1.applyReactStyle)(marker.getElement(), style);
-        }, [style]);
-        (0, react_1.useImperativeHandle)(ref, function() {
-          return marker;
-        }, []);
-        if (marker.getLngLat().lng !== longitude || marker.getLngLat().lat !== latitude) {
-          marker.setLngLat([longitude, latitude]);
-        }
-        if (offset && !(0, deep_equal_1.arePointsEqual)(marker.getOffset(), offset)) {
-          marker.setOffset(offset);
-        }
-        if (marker.isDraggable() !== draggable) {
-          marker.setDraggable(draggable);
-        }
-        if (marker.getRotation() !== rotation) {
-          marker.setRotation(rotation);
-        }
-        if (marker.getRotationAlignment() !== rotationAlignment) {
-          marker.setRotationAlignment(rotationAlignment);
-        }
-        if (marker.getPitchAlignment() !== pitchAlignment) {
-          marker.setPitchAlignment(pitchAlignment);
-        }
-        if (marker.getPopup() !== popup) {
-          marker.setPopup(popup);
-        }
-        return (0, react_dom_1.createPortal)(props.children, marker.getElement());
-      }
-      exports.default = (0, react_1.memo)((0, react_1.forwardRef)(Marker2));
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/popup.js
-  var require_popup = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/popup.js"(exports) {
-      "use strict";
-      var __assign = exports && exports.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-          }
-          return t;
-        };
-        return __assign.apply(this, arguments);
-      };
-      var __values = exports && exports.__values || function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i2 = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-          next: function() {
-            if (o && i2 >= o.length) o = void 0;
-            return { value: o && o[i2++], done: !o };
-          }
-        };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var react_dom_1 = require_react_dom();
-      var react_1 = require_react();
-      var apply_react_style_1 = require_apply_react_style();
-      var map_1 = require_map();
-      var deep_equal_1 = require_deep_equal();
-      function getClassList(className) {
-        return new Set(className ? className.trim().split(/\s+/) : []);
-      }
-      function Popup(props, ref) {
-        var e_1, _a, e_2, _b;
-        var _c = (0, react_1.useContext)(map_1.MapContext), map2 = _c.map, mapLib = _c.mapLib;
-        var container = (0, react_1.useMemo)(function() {
-          return document.createElement("div");
-        }, []);
-        var thisRef = (0, react_1.useRef)({ props });
-        thisRef.current.props = props;
-        var popup = (0, react_1.useMemo)(function() {
-          var options = __assign({}, props);
-          var pp = new mapLib.Popup(options);
-          pp.setLngLat([props.longitude, props.latitude]);
-          pp.once("open", function(e) {
-            var _a2, _b2;
-            (_b2 = (_a2 = thisRef.current.props).onOpen) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, e);
-          });
-          return pp;
-        }, []);
-        (0, react_1.useEffect)(function() {
-          var onClose = function(e) {
-            var _a2, _b2;
-            (_b2 = (_a2 = thisRef.current.props).onClose) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, e);
-          };
-          popup.on("close", onClose);
-          popup.setDOMContent(container).addTo(map2.getMap());
-          return function() {
-            popup.off("close", onClose);
-            if (popup.isOpen()) {
-              popup.remove();
-            }
-          };
-        }, []);
-        (0, react_1.useEffect)(function() {
-          (0, apply_react_style_1.applyReactStyle)(popup.getElement(), props.style);
-        }, [props.style]);
-        (0, react_1.useImperativeHandle)(ref, function() {
-          return popup;
-        }, []);
-        if (popup.isOpen()) {
-          if (popup.getLngLat().lng !== props.longitude || popup.getLngLat().lat !== props.latitude) {
-            popup.setLngLat([props.longitude, props.latitude]);
-          }
-          if (props.offset && !(0, deep_equal_1.deepEqual)(popup.options.offset, props.offset)) {
-            popup.setOffset(props.offset);
-          }
-          if (popup.options.anchor !== props.anchor || popup.options.maxWidth !== props.maxWidth) {
-            popup.options.anchor = props.anchor;
-            popup.setMaxWidth(props.maxWidth);
-          }
-          if (popup.options.className !== props.className) {
-            var prevClassList = getClassList(popup.options.className);
-            var nextClassList = getClassList(props.className);
-            try {
-              for (var prevClassList_1 = __values(prevClassList), prevClassList_1_1 = prevClassList_1.next(); !prevClassList_1_1.done; prevClassList_1_1 = prevClassList_1.next()) {
-                var c = prevClassList_1_1.value;
-                if (!nextClassList.has(c)) {
-                  popup.removeClassName(c);
-                }
-              }
-            } catch (e_1_1) {
-              e_1 = { error: e_1_1 };
-            } finally {
-              try {
-                if (prevClassList_1_1 && !prevClassList_1_1.done && (_a = prevClassList_1.return)) _a.call(prevClassList_1);
-              } finally {
-                if (e_1) throw e_1.error;
-              }
-            }
-            try {
-              for (var nextClassList_1 = __values(nextClassList), nextClassList_1_1 = nextClassList_1.next(); !nextClassList_1_1.done; nextClassList_1_1 = nextClassList_1.next()) {
-                var c = nextClassList_1_1.value;
-                if (!prevClassList.has(c)) {
-                  popup.addClassName(c);
-                }
-              }
-            } catch (e_2_1) {
-              e_2 = { error: e_2_1 };
-            } finally {
-              try {
-                if (nextClassList_1_1 && !nextClassList_1_1.done && (_b = nextClassList_1.return)) _b.call(nextClassList_1);
-              } finally {
-                if (e_2) throw e_2.error;
-              }
-            }
-            popup.options.className = props.className;
-          }
-        }
-        return (0, react_dom_1.createPortal)(props.children, container);
-      }
-      exports.default = (0, react_1.memo)((0, react_1.forwardRef)(Popup));
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/use-control.js
-  var require_use_control = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/use-control.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var react_1 = require_react();
-      var map_1 = require_map();
-      function useControl(onCreate, arg1, arg2, arg3) {
-        var context = (0, react_1.useContext)(map_1.MapContext);
-        var ctrl = (0, react_1.useMemo)(function() {
-          return onCreate(context);
-        }, []);
-        (0, react_1.useEffect)(function() {
-          var opts = arg3 || arg2 || arg1;
-          var onAdd = typeof arg1 === "function" && typeof arg2 === "function" ? arg1 : null;
-          var onRemove = typeof arg2 === "function" ? arg2 : typeof arg1 === "function" ? arg1 : null;
-          var map2 = context.map;
-          if (!map2.hasControl(ctrl)) {
-            map2.addControl(ctrl, opts === null || opts === void 0 ? void 0 : opts.position);
-            if (onAdd) {
-              onAdd(context);
-            }
-          }
-          return function() {
-            if (onRemove) {
-              onRemove(context);
-            }
-            if (map2.hasControl(ctrl)) {
-              map2.removeControl(ctrl);
-            }
-          };
-        }, []);
-        return ctrl;
-      }
-      exports.default = useControl;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/attribution-control.js
-  var require_attribution_control = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/attribution-control.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var react_1 = require_react();
-      var apply_react_style_1 = require_apply_react_style();
-      var use_control_1 = require_use_control();
-      function AttributionControl(props) {
-        var ctrl = (0, use_control_1.default)(function(_a) {
-          var mapLib = _a.mapLib;
-          return new mapLib.AttributionControl(props);
-        }, {
-          position: props.position
-        });
-        (0, react_1.useEffect)(function() {
-          (0, apply_react_style_1.applyReactStyle)(ctrl._container, props.style);
-        }, [props.style]);
-        return null;
-      }
-      exports.default = (0, react_1.memo)(AttributionControl);
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/fullscreen-control.js
-  var require_fullscreen_control = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/fullscreen-control.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var react_1 = require_react();
-      var apply_react_style_1 = require_apply_react_style();
-      var use_control_1 = require_use_control();
-      function FullscreenControl(props) {
-        var ctrl = (0, use_control_1.default)(function(_a) {
-          var mapLib = _a.mapLib;
-          return new mapLib.FullscreenControl({
-            container: props.containerId && document.getElementById(props.containerId)
-          });
-        }, { position: props.position });
-        (0, react_1.useEffect)(function() {
-          (0, apply_react_style_1.applyReactStyle)(ctrl._controlContainer, props.style);
-        }, [props.style]);
-        return null;
-      }
-      exports.default = (0, react_1.memo)(FullscreenControl);
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/geolocate-control.js
-  var require_geolocate_control = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/geolocate-control.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var react_1 = require_react();
-      var apply_react_style_1 = require_apply_react_style();
-      var use_control_1 = require_use_control();
-      function GeolocateControl(props, ref) {
-        var thisRef = (0, react_1.useRef)({ props });
-        var ctrl = (0, use_control_1.default)(function(_a) {
-          var mapLib = _a.mapLib;
-          var gc = new mapLib.GeolocateControl(props);
-          var setupUI = gc._setupUI;
-          gc._setupUI = function(args) {
-            if (!gc._container.hasChildNodes()) {
-              setupUI(args);
-            }
-          };
-          gc.on("geolocate", function(e) {
-            var _a2, _b;
-            (_b = (_a2 = thisRef.current.props).onGeolocate) === null || _b === void 0 ? void 0 : _b.call(_a2, e);
-          });
-          gc.on("error", function(e) {
-            var _a2, _b;
-            (_b = (_a2 = thisRef.current.props).onError) === null || _b === void 0 ? void 0 : _b.call(_a2, e);
-          });
-          gc.on("outofmaxbounds", function(e) {
-            var _a2, _b;
-            (_b = (_a2 = thisRef.current.props).onOutOfMaxBounds) === null || _b === void 0 ? void 0 : _b.call(_a2, e);
-          });
-          gc.on("trackuserlocationstart", function(e) {
-            var _a2, _b;
-            (_b = (_a2 = thisRef.current.props).onTrackUserLocationStart) === null || _b === void 0 ? void 0 : _b.call(_a2, e);
-          });
-          gc.on("trackuserlocationend", function(e) {
-            var _a2, _b;
-            (_b = (_a2 = thisRef.current.props).onTrackUserLocationEnd) === null || _b === void 0 ? void 0 : _b.call(_a2, e);
-          });
-          return gc;
-        }, { position: props.position });
-        thisRef.current.props = props;
-        (0, react_1.useImperativeHandle)(ref, function() {
-          return ctrl;
-        }, []);
-        (0, react_1.useEffect)(function() {
-          (0, apply_react_style_1.applyReactStyle)(ctrl._container, props.style);
-        }, [props.style]);
-        return null;
-      }
-      exports.default = (0, react_1.memo)((0, react_1.forwardRef)(GeolocateControl));
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/navigation-control.js
-  var require_navigation_control = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/navigation-control.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var react_1 = require_react();
-      var apply_react_style_1 = require_apply_react_style();
-      var use_control_1 = require_use_control();
-      function NavigationControl(props) {
-        var ctrl = (0, use_control_1.default)(function(_a) {
-          var mapLib = _a.mapLib;
-          return new mapLib.NavigationControl(props);
-        }, {
-          position: props.position
-        });
-        (0, react_1.useEffect)(function() {
-          (0, apply_react_style_1.applyReactStyle)(ctrl._container, props.style);
-        }, [props.style]);
-        return null;
-      }
-      exports.default = (0, react_1.memo)(NavigationControl);
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/scale-control.js
-  var require_scale_control = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/scale-control.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var react_1 = require_react();
-      var apply_react_style_1 = require_apply_react_style();
-      var use_control_1 = require_use_control();
-      function ScaleControl(props) {
-        var ctrl = (0, use_control_1.default)(function(_a) {
-          var mapLib = _a.mapLib;
-          return new mapLib.ScaleControl(props);
-        }, {
-          position: props.position
-        });
-        var propsRef = (0, react_1.useRef)(props);
-        var prevProps = propsRef.current;
-        propsRef.current = props;
-        var style = props.style;
-        if (props.maxWidth !== void 0 && props.maxWidth !== prevProps.maxWidth) {
-          ctrl.options.maxWidth = props.maxWidth;
-        }
-        if (props.unit !== void 0 && props.unit !== prevProps.unit) {
-          ctrl.setUnit(props.unit);
-        }
-        (0, react_1.useEffect)(function() {
-          (0, apply_react_style_1.applyReactStyle)(ctrl._container, style);
-        }, [style]);
-        return null;
-      }
-      exports.default = (0, react_1.memo)(ScaleControl);
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/utils/assert.js
-  var require_assert = __commonJS({
-    "node_modules/react-map-gl/dist/es5/utils/assert.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-      function assert(condition, message) {
-        if (!condition) {
-          throw new Error(message);
-        }
-      }
-      exports.default = assert;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/layer.js
-  var require_layer = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/layer.js"(exports) {
-      "use strict";
-      var __assign = exports && exports.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-          }
-          return t;
-        };
-        return __assign.apply(this, arguments);
-      };
-      var __read = exports && exports.__read || function(o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
-        var i2 = m.call(o), r, ar = [], e;
-        try {
-          while ((n === void 0 || n-- > 0) && !(r = i2.next()).done) ar.push(r.value);
-        } catch (error) {
-          e = { error };
-        } finally {
-          try {
-            if (r && !r.done && (m = i2["return"])) m.call(i2);
-          } finally {
-            if (e) throw e.error;
-          }
-        }
-        return ar;
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var react_1 = require_react();
-      var map_1 = require_map();
-      var assert_1 = require_assert();
-      var deep_equal_1 = require_deep_equal();
-      function updateLayer(map2, id, props, prevProps) {
-        (0, assert_1.default)(props.id === prevProps.id, "layer id changed");
-        (0, assert_1.default)(props.type === prevProps.type, "layer type changed");
-        if (props.type === "custom" || prevProps.type === "custom") {
-          return;
-        }
-        var _a = props.layout, layout = _a === void 0 ? {} : _a, _b = props.paint, paint = _b === void 0 ? {} : _b, filter = props.filter, minzoom = props.minzoom, maxzoom = props.maxzoom, beforeId = props.beforeId;
-        if (beforeId !== prevProps.beforeId) {
-          map2.moveLayer(id, beforeId);
-        }
-        if (layout !== prevProps.layout) {
-          var prevLayout = prevProps.layout || {};
-          for (var key in layout) {
-            if (!(0, deep_equal_1.deepEqual)(layout[key], prevLayout[key])) {
-              map2.setLayoutProperty(id, key, layout[key]);
-            }
-          }
-          for (var key in prevLayout) {
-            if (!layout.hasOwnProperty(key)) {
-              map2.setLayoutProperty(id, key, void 0);
-            }
-          }
-        }
-        if (paint !== prevProps.paint) {
-          var prevPaint = prevProps.paint || {};
-          for (var key in paint) {
-            if (!(0, deep_equal_1.deepEqual)(paint[key], prevPaint[key])) {
-              map2.setPaintProperty(id, key, paint[key]);
-            }
-          }
-          for (var key in prevPaint) {
-            if (!paint.hasOwnProperty(key)) {
-              map2.setPaintProperty(id, key, void 0);
-            }
-          }
-        }
-        if (!(0, deep_equal_1.deepEqual)(filter, prevProps.filter)) {
-          map2.setFilter(id, filter);
-        }
-        if (minzoom !== prevProps.minzoom || maxzoom !== prevProps.maxzoom) {
-          map2.setLayerZoomRange(id, minzoom, maxzoom);
-        }
-      }
-      function createLayer(map2, id, props) {
-        if (map2.style && map2.style._loaded && (!("source" in props) || map2.getSource(props.source))) {
-          var options = __assign(__assign({}, props), { id });
-          delete options.beforeId;
-          map2.addLayer(options, props.beforeId);
-        }
-      }
-      var layerCounter = 0;
-      function Layer(props) {
-        var map2 = (0, react_1.useContext)(map_1.MapContext).map.getMap();
-        var propsRef = (0, react_1.useRef)(props);
-        var _a = __read((0, react_1.useState)(0), 2), setStyleLoaded = _a[1];
-        var id = (0, react_1.useMemo)(function() {
-          return props.id || "jsx-layer-".concat(layerCounter++);
-        }, []);
-        (0, react_1.useEffect)(function() {
-          if (map2) {
-            var forceUpdate_1 = function() {
-              return setStyleLoaded(function(version) {
-                return version + 1;
-              });
-            };
-            map2.on("styledata", forceUpdate_1);
-            forceUpdate_1();
-            return function() {
-              map2.off("styledata", forceUpdate_1);
-              if (map2.style && map2.style._loaded && map2.getLayer(id)) {
-                map2.removeLayer(id);
-              }
-            };
-          }
-          return void 0;
-        }, [map2]);
-        var layer = map2 && map2.style && map2.getLayer(id);
-        if (layer) {
-          try {
-            updateLayer(map2, id, props, propsRef.current);
-          } catch (error) {
-            console.warn(error);
-          }
-        } else {
-          createLayer(map2, id, props);
-        }
-        propsRef.current = props;
-        return null;
-      }
-      exports.default = Layer;
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/components/source.js
-  var require_source = __commonJS({
-    "node_modules/react-map-gl/dist/es5/components/source.js"(exports) {
-      "use strict";
-      var __assign = exports && exports.__assign || function() {
-        __assign = Object.assign || function(t) {
-          for (var s, i2 = 1, n = arguments.length; i2 < n; i2++) {
-            s = arguments[i2];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-          }
-          return t;
-        };
-        return __assign.apply(this, arguments);
-      };
-      var __read = exports && exports.__read || function(o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
-        var i2 = m.call(o), r, ar = [], e;
-        try {
-          while ((n === void 0 || n-- > 0) && !(r = i2.next()).done) ar.push(r.value);
-        } catch (error) {
-          e = { error };
-        } finally {
-          try {
-            if (r && !r.done && (m = i2["return"])) m.call(i2);
-          } finally {
-            if (e) throw e.error;
-          }
-        }
-        return ar;
-      };
-      var __values = exports && exports.__values || function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i2 = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-          next: function() {
-            if (o && i2 >= o.length) o = void 0;
-            return { value: o && o[i2++], done: !o };
-          }
-        };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      var React13 = require_react();
-      var react_1 = require_react();
-      var react_2 = require_react();
-      var map_1 = require_map();
-      var assert_1 = require_assert();
-      var deep_equal_1 = require_deep_equal();
-      var sourceCounter = 0;
-      function createSource(map2, id, props) {
-        if (map2.style && map2.style._loaded) {
-          var options = __assign({}, props);
-          delete options.id;
-          delete options.children;
-          map2.addSource(id, options);
-          return map2.getSource(id);
-        }
-        return null;
-      }
-      function updateSource(source, props, prevProps) {
-        (0, assert_1.default)(props.id === prevProps.id, "source id changed");
-        (0, assert_1.default)(props.type === prevProps.type, "source type changed");
-        var changedKey = "";
-        var changedKeyCount = 0;
-        for (var key in props) {
-          if (key !== "children" && key !== "id" && !(0, deep_equal_1.deepEqual)(prevProps[key], props[key])) {
-            changedKey = key;
-            changedKeyCount++;
-          }
-        }
-        if (!changedKeyCount) {
-          return;
-        }
-        var type = props.type;
-        if (type === "geojson") {
-          source.setData(props.data);
-        } else if (type === "image") {
-          source.updateImage({
-            url: props.url,
-            coordinates: props.coordinates
-          });
-        } else if ("setCoordinates" in source && changedKeyCount === 1 && changedKey === "coordinates") {
-          source.setCoordinates(props.coordinates);
-        } else if ("setUrl" in source) {
-          switch (changedKey) {
-            case "url":
-              source.setUrl(props.url);
-              break;
-            case "tiles":
-              source.setTiles(props.tiles);
-              break;
-            default:
-          }
-        } else {
-          console.warn("Unable to update <Source> prop: ".concat(changedKey));
-        }
-      }
-      function Source(props) {
-        var map2 = (0, react_1.useContext)(map_1.MapContext).map.getMap();
-        var propsRef = (0, react_1.useRef)(props);
-        var _a = __read((0, react_1.useState)(0), 2), setStyleLoaded = _a[1];
-        var id = (0, react_1.useMemo)(function() {
-          return props.id || "jsx-source-".concat(sourceCounter++);
-        }, []);
-        (0, react_1.useEffect)(function() {
-          if (map2) {
-            var forceUpdate_1 = function() {
-              return setTimeout(function() {
-                return setStyleLoaded(function(version) {
-                  return version + 1;
-                });
-              }, 0);
-            };
-            map2.on("styledata", forceUpdate_1);
-            forceUpdate_1();
-            return function() {
-              var e_1, _a2;
-              var _b;
-              map2.off("styledata", forceUpdate_1);
-              if (map2.style && map2.style._loaded && map2.getSource(id)) {
-                var allLayers = (_b = map2.getStyle()) === null || _b === void 0 ? void 0 : _b.layers;
-                if (allLayers) {
-                  try {
-                    for (var allLayers_1 = __values(allLayers), allLayers_1_1 = allLayers_1.next(); !allLayers_1_1.done; allLayers_1_1 = allLayers_1.next()) {
-                      var layer = allLayers_1_1.value;
-                      if (layer.source === id) {
-                        map2.removeLayer(layer.id);
-                      }
-                    }
-                  } catch (e_1_1) {
-                    e_1 = { error: e_1_1 };
-                  } finally {
-                    try {
-                      if (allLayers_1_1 && !allLayers_1_1.done && (_a2 = allLayers_1.return)) _a2.call(allLayers_1);
-                    } finally {
-                      if (e_1) throw e_1.error;
-                    }
-                  }
-                }
-                map2.removeSource(id);
-              }
-            };
-          }
-          return void 0;
-        }, [map2]);
-        var source = map2 && map2.style && map2.getSource(id);
-        if (source) {
-          updateSource(source, props, propsRef.current);
-        } else {
-          source = createSource(map2, id, props);
-        }
-        propsRef.current = props;
-        return source && React13.Children.map(props.children, function(child) {
-          return child && (0, react_2.cloneElement)(child, {
-            source: id
-          });
-        }) || null;
-      }
-      exports.default = Source;
     }
   });
 
@@ -42753,87 +40792,6 @@ uniform ${i4} ${a3} u_${s3};
     }
   });
 
-  // node_modules/react-map-gl/dist/es5/types/public.js
-  var require_public = __commonJS({
-    "node_modules/react-map-gl/dist/es5/types/public.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/types/style-spec-maplibre.js
-  var require_style_spec_maplibre = __commonJS({
-    "node_modules/react-map-gl/dist/es5/types/style-spec-maplibre.js"(exports) {
-      "use strict";
-      Object.defineProperty(exports, "__esModule", { value: true });
-    }
-  });
-
-  // node_modules/react-map-gl/dist/es5/exports-maplibre.js
-  var require_exports_maplibre = __commonJS({
-    "node_modules/react-map-gl/dist/es5/exports-maplibre.js"(exports) {
-      "use strict";
-      var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
-        if (k2 === void 0) k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() {
-          return m[k];
-        } });
-      } : function(o, m, k, k2) {
-        if (k2 === void 0) k2 = k;
-        o[k2] = m[k];
-      });
-      var __exportStar = exports && exports.__exportStar || function(m, exports2) {
-        for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding(exports2, m, p);
-      };
-      Object.defineProperty(exports, "__esModule", { value: true });
-      exports.MapProvider = exports.useControl = exports.Source = exports.Layer = exports.ScaleControl = exports.GeolocateControl = exports.NavigationControl = exports.FullscreenControl = exports.AttributionControl = exports.Popup = exports.Marker = exports.Map = exports.useMap = void 0;
-      var React13 = require_react();
-      var map_1 = require_map();
-      var marker_1 = require_marker();
-      var popup_1 = require_popup();
-      var attribution_control_1 = require_attribution_control();
-      var fullscreen_control_1 = require_fullscreen_control();
-      var geolocate_control_1 = require_geolocate_control();
-      var navigation_control_1 = require_navigation_control();
-      var scale_control_1 = require_scale_control();
-      var layer_1 = require_layer();
-      var source_1 = require_source();
-      var use_map_1 = require_use_map();
-      function useMap() {
-        return (0, use_map_1.useMap)();
-      }
-      exports.useMap = useMap;
-      var mapLib = Promise.resolve().then(function() {
-        return require_maplibre_gl();
-      });
-      exports.Map = function() {
-        return React13.forwardRef(function Map3(props, ref) {
-          return (0, map_1.default)(props, ref, mapLib);
-        });
-      }();
-      exports.Marker = marker_1.default;
-      exports.Popup = popup_1.default;
-      exports.AttributionControl = attribution_control_1.default;
-      exports.FullscreenControl = fullscreen_control_1.default;
-      exports.NavigationControl = navigation_control_1.default;
-      exports.GeolocateControl = geolocate_control_1.default;
-      exports.ScaleControl = scale_control_1.default;
-      exports.Layer = layer_1.default;
-      exports.Source = source_1.default;
-      var use_control_1 = require_use_control();
-      Object.defineProperty(exports, "useControl", { enumerable: true, get: function() {
-        return use_control_1.default;
-      } });
-      var use_map_2 = require_use_map();
-      Object.defineProperty(exports, "MapProvider", { enumerable: true, get: function() {
-        return use_map_2.MapProvider;
-      } });
-      exports.default = exports.Map;
-      __exportStar(require_public(), exports);
-      __exportStar(require_style_spec_maplibre(), exports);
-    }
-  });
-
   // node_modules/engine.io-parser/build/esm/commons.js
   var PACKET_TYPES = /* @__PURE__ */ Object.create(null);
   PACKET_TYPES["open"] = "0";
@@ -46169,7 +44127,7 @@ uniform ${i4} ${a3} u_${s3};
 
   // client/client.tsx
   var import_react12 = __toESM(require_react());
-  var import_client7 = __toESM(require_client());
+  var import_client6 = __toESM(require_client());
 
   // client/reg/reg-ui.tsx
   var import_react = __toESM(require_react());
@@ -46719,93 +44677,19 @@ uniform ${i4} ${a3} u_${s3};
 
   // client/map/map-ui.tsx
   var import_react8 = __toESM(require_react());
-  var import_exports_maplibre = __toESM(require_exports_maplibre());
   var import_maplibre_gl = __toESM(require_maplibre_gl());
-  var import_client5 = __toESM(require_client());
-  function MyMarker(props) {
-    const markerRef = (0, import_react8.useRef)(null);
-    const onPopup = (0, import_react8.useMemo)(() => {
-      const pp = new import_maplibre_gl.default.Popup();
-      pp.setHTML(`<div>${props.textOfPopup}</div>`);
-      return pp;
-    }, []);
-    return /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement(import_exports_maplibre.Marker, { longitude: props.lon, latitude: props.lat, color: props.color, draggable: false, popup: onPopup, ref: markerRef }));
-  }
-  function MyDraggableMarker(props) {
-    const markerRef = (0, import_react8.useRef)(null);
-    const onPopup = (0, import_react8.useMemo)(() => {
-      const pp = new import_maplibre_gl.default.Popup();
-      pp.setHTML(`<div>${props.textOfPopup}</div>`);
-      return pp;
-    }, []);
-    const onDragEndHandle = async (event) => {
-      let draggableLon = event.lngLat.lng;
-      let draggableLat = event.lngLat.lat;
-      const res = await fetch("/default/map/updatePosition", {
-        method: "POST",
-        body: JSON.stringify({ lat: draggableLat, lon: draggableLon }),
-        headers: { "Content-Type": "application/json" }
-      });
-      const data = await res.json();
-      console.log(data);
-    };
-    const locationInputRef = (0, import_react8.useRef)(null);
-    const selectRef = (0, import_react8.useRef)(null);
-    return /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement(import_exports_maplibre.Marker, { onDragEnd: onDragEndHandle, longitude: props.lon, latitude: props.lat, color: props.color, draggable: true, popup: onPopup, ref: markerRef }), /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement("input", { ref: locationInputRef, type: "text", className: "signInput", style: { zIndex: 100001, position: "absolute", top: "6px" } }), /* @__PURE__ */ import_react8.default.createElement(
-      "input",
-      {
-        type: "button",
-        className: "indexButton",
-        value: "Search location",
-        style: { zIndex: 100001, position: "absolute", top: "6px", left: "360px" },
-        onClick: async () => {
-          if (locationInputRef.current && selectRef.current) {
-            if (locationInputRef.current.value == "") {
-              selectRef.current.innerHTML = "";
-            } else {
-              const res = await fetch("/default/map/getLatLon", {
-                method: "POST",
-                body: JSON.stringify({ place: locationInputRef.current.value }),
-                headers: { "Content-Type": "application/json" }
-              });
-              const data = await res.json();
-              if (res.status == 200) {
-                selectRef.current.innerHTML = "";
-                const option = new Option("Select one of places found by Geoapify...");
-                selectRef.current.options.add(option);
-                for (const place of data.array) {
-                  const option2 = new Option(JSON.stringify(place));
-                  selectRef.current.options.add(option2);
-                }
-              }
-            }
-          }
-        }
+  var globalDraggableMarker = void 0;
+  var globalMarkers = [];
+  function markersShowSwitch() {
+    for (const marker of globalMarkers) {
+      if (!marker.getElement().style.visibility) {
+        marker.getElement().style.visibility = "hidden";
+      } else if (marker.getElement().style.visibility == "visible") {
+        marker.getElement().style.visibility = "hidden";
+      } else {
+        marker.getElement().style.visibility = "visible";
       }
-    ), /* @__PURE__ */ import_react8.default.createElement(
-      "select",
-      {
-        ref: selectRef,
-        className: "signSelect",
-        style: { maxWidth: "500px", position: "absolute", top: "6px", left: "600px", zIndex: 100001 },
-        onChange: async () => {
-          if (markerRef.current && selectRef.current) {
-            try {
-              const place = JSON.parse(selectRef.current.value);
-              markerRef.current.setLngLat([place.lon, place.lat]);
-              const res = await fetch("/default/map/updatePosition", {
-                method: "POST",
-                body: JSON.stringify({ lat: place.lat, lon: place.lon }),
-                headers: { "Content-Type": "application/json" }
-              });
-              const data = await res.json();
-              console.log(data);
-            } catch (err) {
-            }
-          }
-        }
-      }
-    )));
+    }
   }
   function clampLon(lon) {
     let clamped = lon;
@@ -46814,99 +44698,281 @@ uniform ${i4} ${a3} u_${s3};
     return clamped;
   }
   function MapPageUI() {
-    const mapRef = (0, import_react8.useRef)(null);
-    const mapDivRef = (0, import_react8.useRef)(null);
-    const onMouseMoveHandle = (event) => {
-      if (!mapRef.current) {
-        return;
-      }
-      const center = mapRef.current.getCenter();
-      let lon = clampLon(center.lng);
-      let lat = center.lat;
-      window.localStorage.setItem("lon", lon.toString());
-      window.localStorage.setItem("lat", lat.toString());
-    };
-    const onZoomHandle = (event) => {
-      window.localStorage.setItem("zoom", event.viewState.zoom.toString());
-    };
-    (0, import_react8.useEffect)(() => {
-      const func = async () => {
-        if (!mapDivRef.current) {
-          return;
+    const locationInputRef = (0, import_react8.useRef)(null);
+    const selectRef = (0, import_react8.useRef)(null);
+    const checkboxRef = (0, import_react8.useRef)(null);
+    maplibreMapNonReact();
+    return /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement(DefaultMenu, { checked: "Map" }), /* @__PURE__ */ import_react8.default.createElement(
+      "div",
+      {
+        style: {
+          position: "absolute",
+          top: "48px",
+          left: "0px"
         }
-        let lon = window.localStorage.getItem("lon");
-        if (!lon) {
-          lon = "30.347";
-        }
-        let lat = window.localStorage.getItem("lat");
-        if (!lat) {
-          lat = "59.947";
-        }
-        let zoom = window.localStorage.getItem("zoom");
-        if (!zoom) {
-          zoom = "10.67";
-        }
-        const res = await fetch("/default/map/get", { method: "POST" });
-        const data = await res.json();
-        if (res.status == 200) {
-          const array = data.array.map((marker) => {
-            if (marker.color == "blue") {
-              return /* @__PURE__ */ import_react8.default.createElement("div", { key: marker.textOfPopup }, /* @__PURE__ */ import_react8.default.createElement(
-                MyDraggableMarker,
-                {
-                  lat: marker.lat,
-                  lon: marker.lon,
-                  color: marker.color,
-                  textOfPopup: marker.textOfPopup
+      },
+      /* @__PURE__ */ import_react8.default.createElement("input", { ref: locationInputRef, type: "text", className: "signInput", style: { zIndex: 100001, position: "absolute", top: "6px" } }),
+      /* @__PURE__ */ import_react8.default.createElement(
+        "input",
+        {
+          type: "button",
+          className: "indexButton",
+          value: "Search location",
+          style: { zIndex: 100001, position: "absolute", top: "6px", left: "360px" },
+          onClick: async () => {
+            if (locationInputRef.current && selectRef.current) {
+              if (locationInputRef.current.value == "") {
+                selectRef.current.innerHTML = "";
+              } else {
+                const res = await fetch("/default/map/getLatLon", {
+                  method: "POST",
+                  body: JSON.stringify({ place: locationInputRef.current.value }),
+                  headers: { "Content-Type": "application/json" }
+                });
+                const data = await res.json();
+                if (res.status == 200) {
+                  selectRef.current.innerHTML = "";
+                  const option = new Option("Select one of places found by Geoapify...");
+                  selectRef.current.options.add(option);
+                  for (const place of data.array) {
+                    const option2 = new Option(JSON.stringify(place));
+                    selectRef.current.options.add(option2);
+                  }
                 }
-              ));
-            } else {
-              return /* @__PURE__ */ import_react8.default.createElement("div", { key: marker.textOfPopup }, /* @__PURE__ */ import_react8.default.createElement(
-                MyMarker,
-                {
-                  lat: marker.lat,
-                  lon: marker.lon,
-                  color: marker.color,
-                  textOfPopup: marker.textOfPopup
-                }
-              ));
+              }
             }
-          });
-          const root = (0, import_client5.createRoot)(mapDivRef.current);
-          root.render(
-            /* @__PURE__ */ import_react8.default.createElement(
-              import_exports_maplibre.default,
-              {
-                ref: mapRef,
-                onMouseMove: onMouseMoveHandle,
-                onZoom: onZoomHandle,
-                id: "map",
-                initialViewState: { longitude: Number(lon), latitude: Number(lat), zoom: Number(zoom) },
-                style: {
-                  position: "absolute",
-                  top: "48px",
-                  left: "0px",
-                  margin: `0px 0px 0px 0px`,
-                  width: window.innerWidth,
-                  //window.innerWidth * 3 / 8,
-                  height: window.innerHeight
-                  /*</div>window.innerHeight / 2*/
-                },
-                mapStyle: "https://api.maptiler.com/maps/outdoor-v2/style.json?key=PJQMm1QMNMIArTURauzn"
-              },
-              array
-            )
-          );
+          }
         }
-      };
-      func();
+      ),
+      /* @__PURE__ */ import_react8.default.createElement(
+        "select",
+        {
+          ref: selectRef,
+          className: "signSelect",
+          style: { maxWidth: "500px", position: "absolute", top: "6px", left: "600px", zIndex: 100001 },
+          onChange: async () => {
+            if (globalDraggableMarker && selectRef.current) {
+              try {
+                const place = JSON.parse(selectRef.current.value);
+                globalDraggableMarker.setLngLat([place.lon, place.lat]);
+                const res = await fetch("/default/map/updatePosition", {
+                  method: "POST",
+                  body: JSON.stringify({ lat: place.lat, lon: place.lon }),
+                  headers: { "Content-Type": "application/json" }
+                });
+                const data = await res.json();
+                console.log(data);
+              } catch (err) {
+                console.log(err);
+              }
+            }
+          }
+        }
+      ),
+      /* @__PURE__ */ import_react8.default.createElement(
+        "input",
+        {
+          ref: checkboxRef,
+          className: "accountCheckbox",
+          type: "checkbox",
+          style: { height: "30px", fontSize: "20px", position: "absolute", top: "84px", left: "0px" },
+          onChange: () => {
+            if (checkboxRef.current) {
+            }
+          },
+          onClick: () => {
+            markersShowSwitch();
+          }
+        }
+      ),
+      /* @__PURE__ */ import_react8.default.createElement("div", { className: "CMUDiv" }, /* @__PURE__ */ import_react8.default.createElement("a", { style: { width: "170px", color: "black", backgroundColor: "#EEEEEE", position: "absolute", top: "84px", left: "50px", zIndex: 100001 } }, "Show markers"))
+    ));
+  }
+  function maplibreMapNonReact() {
+    let lon = window.localStorage.getItem("lon");
+    if (!lon) {
+      lon = "30.347";
+    }
+    let lat = window.localStorage.getItem("lat");
+    if (!lat) {
+      lat = "59.947";
+    }
+    let zoom = window.localStorage.getItem("zoom");
+    if (!zoom) {
+      zoom = "10.67";
+    }
+    const map2 = new import_maplibre_gl.default.Map({
+      container: "myMap",
+      style: "https://api.maptiler.com/maps/outdoor-v2/style.json?key=PJQMm1QMNMIArTURauzn",
+      center: [Number(lon), Number(lat)],
+      zoom: Number(zoom)
     });
-    return /* @__PURE__ */ import_react8.default.createElement("div", null, /* @__PURE__ */ import_react8.default.createElement(DefaultMenu, { checked: "Map" }), /* @__PURE__ */ import_react8.default.createElement("div", { ref: mapDivRef }));
+    const onMouseMoveHandle = (event) => {
+      const center = map2.getCenter();
+      let lon2 = clampLon(center.lng);
+      let lat2 = center.lat;
+      window.localStorage.setItem("lon", lon2.toString());
+      window.localStorage.setItem("lat", lat2.toString());
+    };
+    const onZoomHandle = () => {
+      window.localStorage.setItem("zoom", map2.getZoom().toString());
+    };
+    const createGeoJSON = (markerData) => {
+      const data = {
+        type: "FeatureCollection",
+        features: markerData.map((marker) => {
+          const feature = {
+            type: "Feature",
+            geometry: { "type": "Point", "coordinates": [marker.lon, marker.lat] },
+            properties: {}
+          };
+          return feature;
+        })
+      };
+      const data2 = {
+        type: "Feature",
+        geometry: { "type": "Point", "coordinates": [markerData[0].lon, markerData[0].lat] },
+        properties: {}
+      };
+      return data;
+    };
+    map2.on("load", async () => {
+      const res = await fetch("/default/map/get", { method: "POST" });
+      const data = await res.json();
+      if (res.status == 200) {
+        for (const marker of data.array) {
+          let draggable = false;
+          let onDragEndHandle = () => {
+          };
+          if (marker.color == "blue") {
+            draggable = true;
+            onDragEndHandle = async (event) => {
+              let draggableLon = event.target._lngLat.lng;
+              let draggableLat = event.target._lngLat.lat;
+              const res2 = await fetch("/default/map/updatePosition", {
+                method: "POST",
+                body: JSON.stringify({ lat: draggableLat, lon: draggableLon }),
+                headers: { "Content-Type": "application/json" }
+              });
+              const data2 = await res2.json();
+              console.log(data2);
+            };
+          }
+          const popup = new import_maplibre_gl.default.Popup().setHTML(marker.textOfPopup);
+          const m = new import_maplibre_gl.default.Marker({
+            color: marker.color,
+            draggable
+          });
+          if (marker.color == "blue") {
+            globalDraggableMarker = m;
+          } else {
+            globalMarkers.push(m);
+          }
+          m.setLngLat([marker.lon, marker.lat]);
+          m.setPopup(popup);
+          m.on("dragend", (event) => {
+            onDragEndHandle(event);
+          });
+          m.addTo(map2);
+        }
+        const geojson = createGeoJSON(data.array);
+        map2.addSource("graduates", {
+          type: "geojson",
+          data: geojson
+          /*{
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -157.855676,
+                21.304547
+              ]
+            }
+          }*/
+        });
+        map2.addLayer({
+          "id": "graduates-heat",
+          "type": "heatmap",
+          "source": "graduates",
+          "maxzoom": 24,
+          "paint": {
+            // Increase the heatmap weight based on frequency and property magnitude
+            "heatmap-weight": [
+              "interpolate",
+              ["linear"],
+              ["get", "mag"],
+              0,
+              0,
+              6,
+              1
+            ],
+            // Increase the heatmap color weight weight by zoom level
+            // heatmap-intensity is a multiplier on top of heatmap-weight
+            "heatmap-intensity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              1,
+              9,
+              3
+            ],
+            // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+            // Begin color ramp at 0-stop with a 0-transparency color
+            // to create a blur-like effect.
+            "heatmap-color": [
+              "interpolate",
+              ["linear"],
+              ["heatmap-density"],
+              0,
+              "rgba(131,77,24,0)",
+              0.2,
+              "rgb(64,64,64)",
+              0.4,
+              "rgb(48,48,48)",
+              0.6,
+              "rgb(181,120,67)",
+              0.8,
+              "rgb(141,87,34)",
+              1,
+              "rgb(131,77,24)"
+            ],
+            // Adjust the heatmap radius by zoom level
+            "heatmap-radius": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              4,
+              9,
+              36
+            ],
+            // Transition from heatmap to circle layer by zoom level
+            "heatmap-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              7,
+              1,
+              9,
+              0
+            ]
+          }
+        });
+      }
+      markersShowSwitch();
+    });
+    map2.on("mousemove", (event) => {
+      onMouseMoveHandle(event);
+    });
+    map2.on("zoom", () => {
+      onZoomHandle();
+    });
   }
 
   // client/admin/panel/panel-ui.tsx
   var import_react9 = __toESM(require_react());
-  var import_client6 = __toESM(require_client());
+  var import_client5 = __toESM(require_client());
   var helpString = `{
   name: {
     type: String,
@@ -46996,7 +45062,7 @@ uniform ${i4} ${a3} u_${s3};
             const optionsArray = data.array.map((user) => {
               return /* @__PURE__ */ import_react9.default.createElement("option", { key: user.name }, user.name);
             });
-            const root = (0, import_client6.createRoot)(divRef.current);
+            const root = (0, import_client5.createRoot)(divRef.current);
             if (infoRef.current) {
               infoRef.current.innerText = helpString;
             }
@@ -47277,7 +45343,7 @@ uniform ${i4} ${a3} u_${s3};
     if (!rootElement) {
       return;
     }
-    globalRoot = (0, import_client7.createRoot)(rootElement);
+    globalRoot = (0, import_client6.createRoot)(rootElement);
   }
   window.addEventListener("load", () => {
     globalSocket = lookup2();
